@@ -3,7 +3,6 @@ terraform {
     bucket  = "terraform-state-bucket-239292"
     key     = "stage1/terraform.tfstate"
     region  = "eu-north-1"
-    profile = "Staging-env"
   }
 }
 
