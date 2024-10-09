@@ -3,18 +3,18 @@ name: Terraform CI/CD Pipeline
 on:
   push:
     branches:
-      - main  
+      - main
   pull_request:
     branches:
-      - main  
+      - main
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
 
     permissions:
-      id-token: write  
-      contents: read   
+      id-token: write
+      contents: read
 
     steps:
     - name: Checkout code
@@ -23,20 +23,17 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.5.0  
+        terraform_version: 1.5.0
 
-    - name: Configure AWS credentials using OIDC and IAM Identity Center
+    - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        sso-start-url: ${{ secrets.AWS_SSO_START_URL }}
-        sso-region: ${{ secrets.AWS_SSO_REGION }}
-        sso-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-        sso-role-name: ${{ secrets.AWS_SSO_ROLE_NAME }}
-        aws-region: eu-north-1  
+        role-to-assume: arn:aws:iam::585008077246:role/GithubCICD
+        aws-region: eu-north-1 
 
     - name: Terraform Init
       run: terraform init
-      working-directory: ./terraform  
+      working-directory: ./terraform
 
     - name: Terraform Format Check
       run: terraform fmt -check
