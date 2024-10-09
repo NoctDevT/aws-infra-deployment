@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-state-bucket-239292"
-    key    = "stage1/terraform.tfstate"
-    region = "eu-north-1"
+    bucket  = "terraform-state-bucket-239292"
+    key     = "stage1/terraform.tfstate"
+    region  = "eu-north-1"
     profile = "Staging-env"
   }
 }
@@ -18,8 +18,8 @@ resource "aws_s3_object" "index" {
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access_block" {
-  bucket = aws_s3_bucket.static_website.id
-  block_public_policy = false   
+  bucket              = aws_s3_bucket.static_website.id
+  block_public_policy = false
 }
 
 resource "aws_s3_bucket_policy" "website_policy" {
