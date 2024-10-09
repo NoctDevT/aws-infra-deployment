@@ -29,10 +29,16 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         role-to-assume: arn:aws:iam::713881800615:role/Github
-        aws-region: eu-north-1 
+        aws-region: eu-north-1
 
     - name: Terraform Init
       run: terraform init
+      working-directory: ./terraform
+
+    - name: Import S3 Buckets if they exist
+      run: |
+        terraform import aws_s3_bucket.static_website website-bucket-23948989 || echo "Website bucket does not exist, skipping import"
+        terraform import aws_s3_bucket.terraform_bucket terraform-state-bucket-239292 || echo "State bucket does not exist, skipping import"
       working-directory: ./terraform
 
     - name: Terraform Format Check
