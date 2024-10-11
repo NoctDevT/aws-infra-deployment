@@ -40,7 +40,6 @@ resource "aws_s3_bucket" "terraform_bucket" {
   bucket = "terraform-state-bucket-239292"
 }
 
-
 resource "aws_route53_zone" "main" {
   name = var.domain_name 
 }
