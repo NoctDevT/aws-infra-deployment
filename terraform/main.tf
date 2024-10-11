@@ -35,22 +35,3 @@ resource "aws_s3_bucket_policy" "website_policy" {
     ]
   })
 }
-
-resource "aws_s3_bucket" "terraform_bucket" {
-  bucket = "terraform-state-bucket-239292"
-}
-
-resource "aws_route53_zone" "main" {
-  name = var.domain_name 
-}
-
-resource "aws_route53_record" "www" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = var.domain_name
-  type    = "A"
-  alias {
-    name                   = aws_s3_bucket.static_website.website_endpoint
-    zone_id                = aws_s3_bucket.static_website.hosted_zone_id
-    evaluate_target_health = false
-  }
-}
