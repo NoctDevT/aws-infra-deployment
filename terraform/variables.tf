@@ -12,3 +12,8 @@ variable "static_website_bucket_name" {
   description = "S3 bucket name for the static website"
   default     = "website-bucket-23948989"
 }
+
+variable "domain_name" {
+  description = "The domain name for the static website."
+  default     = "autumndev.net"
+}
