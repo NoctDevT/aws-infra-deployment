@@ -6,6 +6,11 @@ terraform {
   }
 }
 
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "terraform-state-bucket-239292"
+}
+
+
 resource "aws_s3_bucket" "static_website" {
   bucket = var.static_website_bucket_name
 }
